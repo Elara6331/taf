@@ -1,6 +1,6 @@
 # taf
 
-This is a library that parses and decodes [TAF forecasts](https://en.wikipedia.org/wiki/Terminal_aerodrome_forecast).
+This is a library and command-line tool that parses and decodes [TAF forecasts](https://en.wikipedia.org/wiki/Terminal_aerodrome_forecast).
 
 TAF stands for Terminal Aerodrome Forecast. It's the weather forecast format used in aviation. TAF reports are useful as a free source of accurate weather.
 
