@@ -107,9 +107,12 @@ func ParseWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 				Precipitation: Precipitation(item.Vicinity.Precipitation),
 			})
 		case item.SkyCondition != nil:
-			altitude, err := strconv.Atoi(item.SkyCondition.Altitude)
-			if err != nil {
-				return nil, participle.Errorf(item.SkyCondition.Pos, "sky: %s", err)
+			var altitude int
+			if item.SkyCondition.Altitude != "" {
+				altitude, err = strconv.Atoi(item.SkyCondition.Altitude)
+				if err != nil {
+					return nil, participle.Errorf(item.SkyCondition.Pos, "sky: %s", err)
+				}
 			}
 
 			appendField(out, "SkyCondition", SkyCondition{
