@@ -56,7 +56,7 @@ type Options struct {
 	Year int
 
 	// The Month field is used to calculate the full date that this
-	// report was published. If it's unset, the current year will be used.
+	// report was published. If it's unset, the current month will be used.
 	Month time.Month
 }
 
