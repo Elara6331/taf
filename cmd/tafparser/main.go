@@ -19,8 +19,8 @@ func init() {
 func main() {
 	pretty := pflag.BoolP("pretty", "p", true, "Pretty-print the JSON output")
 	printGo := pflag.BoolP("print-go", "G", false, "Print Go code instead of JSON")
-	convertDist := pflag.StringP("convert-distance", "d", "", "Convert all the distances to the given unit. (valid units: sm, mi, m)")
-	convertSpd := pflag.StringP("convert-speed", "s", "", "Convert all the speeds to the given unit. (valid units: m/s, mps, kmh, kph, kt, kts)")
+	convertDist := pflag.StringP("convert-distance", "d", "", "Convert all the distances to the given unit. (valid units: mi, m, km)")
+	convertSpd := pflag.StringP("convert-speed", "s", "", "Convert all the speeds to the given unit. (valid units: m/s, kph, kts, mph)")
 	pflag.Parse()
 
 	var opts taf.Options
