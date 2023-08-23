@@ -1,5 +1,7 @@
 # taf
 
+[![Go Report Card](https://goreportcard.com/badge/go.elara.ws/taf)](https://goreportcard.com/report/go.elara.ws/taf)
+
 This is a library and command-line tool that parses and decodes [TAF forecasts](https://en.wikipedia.org/wiki/Terminal_aerodrome_forecast).
 
 TAF stands for Terminal Aerodrome Forecast. It's the weather forecast format used in aviation. TAF reports are useful as a free source of accurate weather.
