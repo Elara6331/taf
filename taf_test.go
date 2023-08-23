@@ -1,11 +1,12 @@
 package taf
 
 import (
-	"reflect"
 	"strings"
 	"testing"
 	"time"
 
+	"github.com/go-test/deep"
+	"go.elara.ws/taf/airports"
 	"go.elara.ws/taf/units"
 )
 
@@ -18,7 +19,19 @@ func TestKLAX(t *testing.T) {
   FM222000 26012KT P6SM SCT030`
 
 	expected := &Forecast{
-		Identifier:  "KLAX",
+		Identifier: "KLAX",
+		Airport: airports.Airport{
+			ICAO:      "KLAX",
+			IATA:      "LAX",
+			Name:      "Los Angeles International Airport",
+			City:      "Los Angeles",
+			State:     "California",
+			Country:   "US",
+			Elevation: 125,
+			Latitude:  33.94250107,
+			Longitude: -118.4079971,
+			Timezone:  "America/Los_Angeles",
+		},
 		PublishTime: time.Date(2023, time.September, 21, 20, 11, 0, 0, time.UTC),
 		Valid: ValidPair{
 			From:     time.Date(2023, time.September, 21, 20, 0, 0, 0, time.UTC),
@@ -180,8 +193,8 @@ func TestKLAX(t *testing.T) {
 		t.Fatalf("Error during parsing: %s", err)
 	}
 
-	if !reflect.DeepEqual(fc, expected) {
-		t.Errorf("Output does not match expected")
+	if diff := deep.Equal(fc, expected); diff != nil {
+		t.Error(diff)
 	}
 }
 
@@ -191,7 +204,19 @@ func TestZGSZ(t *testing.T) {
   TEMPO 2204/2208 TSRA SCT020 FEW023CB`
 
 	expected := &Forecast{
-		Identifier:  "ZGSZ",
+		Identifier: "ZGSZ",
+		Airport: airports.Airport{
+			ICAO:      "ZGSZ",
+			IATA:      "SZX",
+			Name:      "Shenzhen Bao'an International Airport",
+			City:      "Shenzhen",
+			State:     "Guangdong",
+			Country:   "CN",
+			Elevation: 13,
+			Latitude:  22.6392993927,
+			Longitude: 113.8109970093,
+			Timezone:  "Asia/Shanghai",
+		},
 		PublishTime: time.Date(2023, time.September, 21, 19, 7, 0, 0, time.UTC),
 		Valid: ValidPair{
 			From:     time.Date(2023, time.September, 21, 18, 0, 0, 0, time.UTC),
@@ -286,8 +311,8 @@ func TestZGSZ(t *testing.T) {
 		t.Fatalf("Error during parsing: %s", err)
 	}
 
-	if !reflect.DeepEqual(fc, expected) {
-		t.Errorf("Output does not match expected")
+	if diff := deep.Equal(fc, expected); diff != nil {
+		t.Error(diff)
 	}
 }
 
@@ -299,7 +324,19 @@ func TestLFBD(t *testing.T) {
   BECMG 2222/2224 24004KT`
 
 	expected := &Forecast{
-		Identifier:  "LFBD",
+		Identifier: "LFBD",
+		Airport: airports.Airport{
+			ICAO:      "LFBD",
+			IATA:      "BOD",
+			Name:      "Bordeaux-Merignac (BA 106) Airport",
+			City:      "Bordeaux/Merignac",
+			State:     "Nouvelle-Aquitaine",
+			Country:   "FR",
+			Elevation: 162,
+			Latitude:  44.8283004761,
+			Longitude: -0.7155560255,
+			Timezone:  "Europe/Paris",
+		},
 		PublishTime: time.Date(2023, time.September, 21, 17, 0, 0, 0, time.UTC),
 		Valid: ValidPair{
 			From:     time.Date(2023, time.September, 21, 18, 0, 0, 0, time.UTC),
@@ -397,8 +434,8 @@ func TestLFBD(t *testing.T) {
 		t.Fatalf("Error during parsing: %s", err)
 	}
 
-	if !reflect.DeepEqual(fc, expected) {
-		t.Errorf("Output does not match expected")
+	if diff := deep.Equal(fc, expected); diff != nil {
+		t.Error(diff)
 	}
 }
 
@@ -412,7 +449,19 @@ func TestUUEE(t *testing.T) {
   TEMPO 2209/2218 -TSRA BKN020CB`
 
 	expected := &Forecast{
-		Identifier:  "UUEE",
+		Identifier: "UUEE",
+		Airport: airports.Airport{
+			ICAO:      "UUEE",
+			IATA:      "SVO",
+			Name:      "Sheremetyevo International Airport",
+			City:      "Moscow",
+			State:     "Moscow-Oblast",
+			Country:   "RU",
+			Elevation: 622,
+			Latitude:  55.9725990295,
+			Longitude: 37.4146003723,
+			Timezone:  "Europe/Moscow",
+		},
 		PublishTime: time.Date(2023, time.September, 21, 19, 58, 0, 0, time.UTC),
 		Valid: ValidPair{
 			From:     time.Date(2023, time.September, 21, 21, 0, 0, 0, time.UTC),
@@ -527,8 +576,8 @@ func TestUUEE(t *testing.T) {
 		t.Fatalf("Error during parsing: %s", err)
 	}
 
-	if !reflect.DeepEqual(fc, expected) {
-		t.Errorf("Output does not match expected")
+	if diff := deep.Equal(fc, expected); diff != nil {
+		t.Error(diff)
 	}
 }
 
@@ -540,7 +589,19 @@ func TestEGLL(t *testing.T) {
   BECMG 2207/2210 SCT025`
 
 	expected := &Forecast{
-		Identifier:  "EGLL",
+		Identifier: "EGLL",
+		Airport: airports.Airport{
+			ICAO:      "EGLL",
+			IATA:      "LHR",
+			Name:      "London Heathrow Airport",
+			City:      "London",
+			State:     "England",
+			Country:   "GB",
+			Elevation: 83,
+			Latitude:  51.4706001282,
+			Longitude: -0.4619410038,
+			Timezone:  "Europe/London",
+		},
 		PublishTime: time.Date(2023, time.September, 21, 16, 58, 0, 0, time.UTC),
 		Valid: ValidPair{
 			From:     time.Date(2023, time.September, 21, 18, 0, 0, 0, time.UTC),
@@ -620,7 +681,7 @@ func TestEGLL(t *testing.T) {
 		t.Fatalf("Error during parsing: %s", err)
 	}
 
-	if !reflect.DeepEqual(fc, expected) {
-		t.Errorf("Output does not match expected")
+	if diff := deep.Equal(fc, expected); diff != nil {
+		t.Error(diff)
 	}
 }
