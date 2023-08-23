@@ -12,22 +12,21 @@ const (
 	ValidFormat = "0215"
 )
 
-func parseTime(s string) (time.Time, error) {
+func parseTime(s string, m time.Month, year int) (time.Time, error) {
 	t, err := time.Parse(TimeFormat, s)
 	if err != nil {
 		return time.Time{}, err
 	}
-	now := time.Now().UTC()
-	return t.AddDate(now.Year(), int(now.Month()), 0), nil
+	return t.AddDate(year, int(m)-1, 0), nil
 }
 
-func parseValid(v *parser.ValidPair) (ValidPair, error) {
-	start, err := parseValidTime(v.Start)
+func parseValid(v *parser.ValidPair, m time.Month, year int) (ValidPair, error) {
+	start, err := parseValidTime(v.Start, m, year)
 	if err != nil {
 		return ValidPair{}, err
 	}
 
-	end, err := parseValidTime(v.End)
+	end, err := parseValidTime(v.End, m, year)
 	if err != nil {
 		return ValidPair{}, err
 	}
@@ -39,7 +38,7 @@ func parseValid(v *parser.ValidPair) (ValidPair, error) {
 	}, nil
 }
 
-func parseValidTime(s string) (time.Time, error) {
+func parseValidTime(s string, m time.Month, year int) (time.Time, error) {
 	addDays := 0
 	// Go doesn't know what to do with hour 24,
 	// so we set it to 00 the next day
@@ -53,6 +52,5 @@ func parseValidTime(s string) (time.Time, error) {
 		return time.Time{}, err
 	}
 
-	now := time.Now().UTC()
-	return t.AddDate(now.Year(), int(now.Month()), addDays), nil
+	return t.AddDate(year, int(m)-1, addDays), nil
 }

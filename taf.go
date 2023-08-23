@@ -50,6 +50,14 @@ type Options struct {
 	// If this is set, all speed units in the forecast will
 	// be converted to the given unit
 	SpeedUnit units.Speed
+
+	// The Year field is used to calculate the full date that this
+	// report was published. If it's unset, the current year will be used.
+	Year int
+
+	// The Month field is used to calculate the full date that this
+	// report was published. If it's unset, the current year will be used.
+	Month time.Month
 }
 
 // ParseWithOptions parses the data in a reader and returns a Forecast
@@ -65,6 +73,14 @@ func ParseWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 		}
 	case *strings.Reader:
 		filename = "string"
+	}
+
+	if opts.Year == 0 {
+		opts.Year = time.Now().Year()
+	}
+
+	if opts.Month == 0 {
+		opts.Month = time.Now().Month()
 	}
 
 	ast, err := parser.Parser.Parse(filename, r)
@@ -83,7 +99,7 @@ func ParseWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 				fc.Airport = a
 			}
 		case item.Time != nil:
-			t, err := parseTime(*item.Time)
+			t, err := parseTime(*item.Time, opts.Month, opts.Year)
 			if err != nil {
 				return nil, participle.Errorf(item.Pos, "time: %s", err)
 			}
@@ -91,7 +107,7 @@ func ParseWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 
 			// The Time item always comes with a Valid as well because
 			// of the way it's parsed into the AST
-			vp, err := parseValid(item.Valid)
+			vp, err := parseValid(item.Valid, opts.Month, opts.Year)
 			if err != nil {
 				return nil, participle.Errorf(item.Pos, "time: %s", err)
 			}
@@ -125,7 +141,7 @@ func ParseWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 				CloudType: convertCloudType(item.SkyCondition.CloudType),
 			})
 		case item.Temperature != nil:
-			vt, err := parseValidTime(item.Temperature.Time)
+			vt, err := parseValidTime(item.Temperature.Time, opts.Month, opts.Year)
 			if err != nil {
 				return nil, participle.Errorf(item.Temperature.Pos, "temp: %s", err)
 			}
@@ -277,13 +293,13 @@ func ParseWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 
 			// FM changes don't have a valid pair, they only come with a single time string
 			if ch.Type == From {
-				t, err := parseTime(item.Change.Time)
+				t, err := parseTime(item.Change.Time, opts.Month, opts.Year)
 				if err != nil {
 					return nil, participle.Errorf(item.Change.Pos, "changes: %s", err)
 				}
 				ch.Valid = ValidPair{From: t}
 			} else {
-				vp, err := parseValid(item.Change.Valid)
+				vp, err := parseValid(item.Change.Valid, opts.Month, opts.Year)
 				if err != nil {
 					return nil, participle.Errorf(item.Change.Pos, "changes: %s", err)
 				}

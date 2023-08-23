@@ -32,10 +32,10 @@ func TestKLAX(t *testing.T) {
 			Longitude: -118.4079971,
 			Timezone:  "America/Los_Angeles",
 		},
-		PublishTime: time.Date(2023, time.September, 21, 20, 11, 0, 0, time.UTC),
+		PublishTime: time.Date(2023, time.August, 21, 20, 11, 0, 0, time.UTC),
 		Valid: ValidPair{
-			From:     time.Date(2023, time.September, 21, 20, 0, 0, 0, time.UTC),
-			To:       time.Date(2023, time.September, 23, 0, 0, 0, 0, time.UTC),
+			From:     time.Date(2023, time.August, 21, 20, 0, 0, 0, time.UTC),
+			To:       time.Date(2023, time.August, 23, 0, 0, 0, 0, time.UTC),
 			Duration: time.Duration(100800000000000),
 		},
 		Visibility: Visibility{
@@ -68,7 +68,7 @@ func TestKLAX(t *testing.T) {
 			{
 				Type: From,
 				Valid: ValidPair{
-					From: time.Date(2023, time.September, 21, 22, 0, 0, 0, time.UTC),
+					From: time.Date(2023, time.August, 21, 22, 0, 0, 0, time.UTC),
 				},
 				Visibility: Visibility{
 					Plus:  true,
@@ -92,7 +92,7 @@ func TestKLAX(t *testing.T) {
 			{
 				Type: From,
 				Valid: ValidPair{
-					From: time.Date(2023, time.September, 22, 3, 0, 0, 0, time.UTC),
+					From: time.Date(2023, time.August, 22, 3, 0, 0, 0, time.UTC),
 				},
 				Visibility: Visibility{
 					Plus:  true,
@@ -116,7 +116,7 @@ func TestKLAX(t *testing.T) {
 			{
 				Type: From,
 				Valid: ValidPair{
-					From: time.Date(2023, time.September, 22, 10, 0, 0, 0, time.UTC),
+					From: time.Date(2023, time.August, 22, 10, 0, 0, 0, time.UTC),
 				},
 				Visibility: Visibility{
 					Plus:  true,
@@ -140,7 +140,7 @@ func TestKLAX(t *testing.T) {
 			{
 				Type: From,
 				Valid: ValidPair{
-					From: time.Date(2023, time.September, 22, 17, 0, 0, 0, time.UTC),
+					From: time.Date(2023, time.August, 22, 17, 0, 0, 0, time.UTC),
 				},
 				Visibility: Visibility{
 					Plus:  true,
@@ -164,7 +164,7 @@ func TestKLAX(t *testing.T) {
 			{
 				Type: From,
 				Valid: ValidPair{
-					From: time.Date(2023, time.September, 22, 20, 0, 0, 0, time.UTC),
+					From: time.Date(2023, time.August, 22, 20, 0, 0, 0, time.UTC),
 				},
 				Visibility: Visibility{
 					Plus:  true,
@@ -188,7 +188,10 @@ func TestKLAX(t *testing.T) {
 		},
 	}
 
-	fc, err := Parse(strings.NewReader(data))
+	fc, err := ParseWithOptions(strings.NewReader(data), Options{
+		Month: time.August,
+		Year:  2023,
+	})
 	if err != nil {
 		t.Fatalf("Error during parsing: %s", err)
 	}
@@ -217,10 +220,10 @@ func TestZGSZ(t *testing.T) {
 			Longitude: 113.8109970093,
 			Timezone:  "Asia/Shanghai",
 		},
-		PublishTime: time.Date(2023, time.September, 21, 19, 7, 0, 0, time.UTC),
+		PublishTime: time.Date(2023, time.August, 21, 19, 7, 0, 0, time.UTC),
 		Valid: ValidPair{
-			From:     time.Date(2023, time.September, 21, 18, 0, 0, 0, time.UTC),
-			To:       time.Date(2023, time.September, 22, 18, 0, 0, 0, time.UTC),
+			From:     time.Date(2023, time.August, 21, 18, 0, 0, 0, time.UTC),
+			To:       time.Date(2023, time.August, 22, 18, 0, 0, 0, time.UTC),
 			Duration: time.Duration(86400000000000),
 		},
 		Visibility: Visibility{
@@ -244,20 +247,20 @@ func TestZGSZ(t *testing.T) {
 			{
 				Type:  High,
 				Value: 32,
-				Time:  time.Date(2023, time.September, 22, 6, 0, 0, 0, time.UTC),
+				Time:  time.Date(2023, time.August, 22, 6, 0, 0, 0, time.UTC),
 			},
 			{
 				Type:  Low,
 				Value: 28,
-				Time:  time.Date(2023, time.September, 21, 22, 0, 0, 0, time.UTC),
+				Time:  time.Date(2023, time.August, 21, 22, 0, 0, 0, time.UTC),
 			},
 		},
 		Changes: []*Change{
 			{
 				Type: Temporary,
 				Valid: ValidPair{
-					From:     time.Date(2023, time.September, 21, 20, 0, 0, 0, time.UTC),
-					To:       time.Date(2023, time.September, 22, 2, 0, 0, 0, time.UTC),
+					From:     time.Date(2023, time.August, 21, 20, 0, 0, 0, time.UTC),
+					To:       time.Date(2023, time.August, 22, 2, 0, 0, 0, time.UTC),
 					Duration: time.Duration(21600000000000),
 				},
 				SkyCondition: []SkyCondition{
@@ -281,8 +284,8 @@ func TestZGSZ(t *testing.T) {
 			{
 				Type: Temporary,
 				Valid: ValidPair{
-					From:     time.Date(2023, time.September, 22, 4, 0, 0, 0, time.UTC),
-					To:       time.Date(2023, time.September, 22, 8, 0, 0, 0, time.UTC),
+					From:     time.Date(2023, time.August, 22, 4, 0, 0, 0, time.UTC),
+					To:       time.Date(2023, time.August, 22, 8, 0, 0, 0, time.UTC),
 					Duration: time.Duration(14400000000000),
 				},
 				SkyCondition: []SkyCondition{
@@ -306,7 +309,10 @@ func TestZGSZ(t *testing.T) {
 		},
 	}
 
-	fc, err := Parse(strings.NewReader(data))
+	fc, err := ParseWithOptions(strings.NewReader(data), Options{
+		Month: time.August,
+		Year:  2023,
+	})
 	if err != nil {
 		t.Fatalf("Error during parsing: %s", err)
 	}
@@ -337,10 +343,10 @@ func TestLFBD(t *testing.T) {
 			Longitude: -0.7155560255,
 			Timezone:  "Europe/Paris",
 		},
-		PublishTime: time.Date(2023, time.September, 21, 17, 0, 0, 0, time.UTC),
+		PublishTime: time.Date(2023, time.August, 21, 17, 0, 0, 0, time.UTC),
 		Valid: ValidPair{
-			From:     time.Date(2023, time.September, 21, 18, 0, 0, 0, time.UTC),
-			To:       time.Date(2023, time.September, 23, 0, 0, 0, 0, time.UTC),
+			From:     time.Date(2023, time.August, 21, 18, 0, 0, 0, time.UTC),
+			To:       time.Date(2023, time.August, 23, 0, 0, 0, 0, time.UTC),
 			Duration: time.Duration(108000000000000),
 		},
 		Wind: Wind{
@@ -354,20 +360,20 @@ func TestLFBD(t *testing.T) {
 			{
 				Type:  High,
 				Value: 37,
-				Time:  time.Date(2023, time.September, 22, 14, 0, 0, 0, time.UTC),
+				Time:  time.Date(2023, time.August, 22, 14, 0, 0, 0, time.UTC),
 			},
 			{
 				Type:  Low,
 				Value: 22,
-				Time:  time.Date(2023, time.September, 22, 5, 0, 0, 0, time.UTC),
+				Time:  time.Date(2023, time.August, 22, 5, 0, 0, 0, time.UTC),
 			},
 		},
 		Changes: []*Change{
 			{
 				Type: Becoming,
 				Valid: ValidPair{
-					From:     time.Date(2023, time.September, 21, 18, 0, 0, 0, time.UTC),
-					To:       time.Date(2023, time.September, 21, 20, 0, 0, 0, time.UTC),
+					From:     time.Date(2023, time.August, 21, 18, 0, 0, 0, time.UTC),
+					To:       time.Date(2023, time.August, 21, 20, 0, 0, 0, time.UTC),
 					Duration: time.Duration(7200000000000),
 				},
 				Wind: Wind{
@@ -381,8 +387,8 @@ func TestLFBD(t *testing.T) {
 			{
 				Type: Becoming,
 				Valid: ValidPair{
-					From:     time.Date(2023, time.September, 22, 0, 0, 0, 0, time.UTC),
-					To:       time.Date(2023, time.September, 22, 2, 0, 0, 0, time.UTC),
+					From:     time.Date(2023, time.August, 22, 0, 0, 0, 0, time.UTC),
+					To:       time.Date(2023, time.August, 22, 2, 0, 0, 0, time.UTC),
 					Duration: time.Duration(7200000000000),
 				},
 				Wind: Wind{
@@ -396,8 +402,8 @@ func TestLFBD(t *testing.T) {
 			{
 				Type: Becoming,
 				Valid: ValidPair{
-					From:     time.Date(2023, time.September, 22, 13, 0, 0, 0, time.UTC),
-					To:       time.Date(2023, time.September, 22, 15, 0, 0, 0, time.UTC),
+					From:     time.Date(2023, time.August, 22, 13, 0, 0, 0, time.UTC),
+					To:       time.Date(2023, time.August, 22, 15, 0, 0, 0, time.UTC),
 					Duration: time.Duration(7200000000000),
 				},
 				Wind: Wind{
@@ -411,8 +417,8 @@ func TestLFBD(t *testing.T) {
 			{
 				Type: Becoming,
 				Valid: ValidPair{
-					From:     time.Date(2023, time.September, 22, 22, 0, 0, 0, time.UTC),
-					To:       time.Date(2023, time.September, 23, 0, 0, 0, 0, time.UTC),
+					From:     time.Date(2023, time.August, 22, 22, 0, 0, 0, time.UTC),
+					To:       time.Date(2023, time.August, 23, 0, 0, 0, 0, time.UTC),
 					Duration: time.Duration(7200000000000),
 				},
 				Wind: Wind{
@@ -429,7 +435,10 @@ func TestLFBD(t *testing.T) {
 		},
 	}
 
-	fc, err := Parse(strings.NewReader(data))
+	fc, err := ParseWithOptions(strings.NewReader(data), Options{
+		Month: time.August,
+		Year:  2023,
+	})
 	if err != nil {
 		t.Fatalf("Error during parsing: %s", err)
 	}
@@ -462,10 +471,10 @@ func TestUUEE(t *testing.T) {
 			Longitude: 37.4146003723,
 			Timezone:  "Europe/Moscow",
 		},
-		PublishTime: time.Date(2023, time.September, 21, 19, 58, 0, 0, time.UTC),
+		PublishTime: time.Date(2023, time.August, 21, 19, 58, 0, 0, time.UTC),
 		Valid: ValidPair{
-			From:     time.Date(2023, time.September, 21, 21, 0, 0, 0, time.UTC),
-			To:       time.Date(2023, time.September, 22, 21, 0, 0, 0, time.UTC),
+			From:     time.Date(2023, time.August, 21, 21, 0, 0, 0, time.UTC),
+			To:       time.Date(2023, time.August, 22, 21, 0, 0, 0, time.UTC),
 			Duration: time.Duration(86400000000000),
 		},
 		Visibility: Visibility{
@@ -489,20 +498,20 @@ func TestUUEE(t *testing.T) {
 			{
 				Type:  High,
 				Value: 20,
-				Time:  time.Date(2023, time.September, 22, 12, 0, 0, 0, time.UTC),
+				Time:  time.Date(2023, time.August, 22, 12, 0, 0, 0, time.UTC),
 			},
 			{
 				Type:  Low,
 				Value: 12,
-				Time:  time.Date(2023, time.September, 22, 2, 0, 0, 0, time.UTC),
+				Time:  time.Date(2023, time.August, 22, 2, 0, 0, 0, time.UTC),
 			},
 		},
 		Changes: []*Change{
 			{
 				Type: Temporary,
 				Valid: ValidPair{
-					From:     time.Date(2023, time.September, 21, 21, 0, 0, 0, time.UTC),
-					To:       time.Date(2023, time.September, 22, 4, 0, 0, 0, time.UTC),
+					From:     time.Date(2023, time.August, 21, 21, 0, 0, 0, time.UTC),
+					To:       time.Date(2023, time.August, 22, 4, 0, 0, 0, time.UTC),
 					Duration: time.Duration(25200000000000),
 				},
 				SkyCondition: []SkyCondition{
@@ -516,8 +525,8 @@ func TestUUEE(t *testing.T) {
 			{
 				Type: Temporary,
 				Valid: ValidPair{
-					From:     time.Date(2023, time.September, 21, 21, 0, 0, 0, time.UTC),
-					To:       time.Date(2023, time.September, 22, 4, 0, 0, 0, time.UTC),
+					From:     time.Date(2023, time.August, 21, 21, 0, 0, 0, time.UTC),
+					To:       time.Date(2023, time.August, 22, 4, 0, 0, 0, time.UTC),
 					Duration: time.Duration(25200000000000),
 				},
 				Visibility: Visibility{
@@ -533,8 +542,8 @@ func TestUUEE(t *testing.T) {
 			{
 				Type: Becoming,
 				Valid: ValidPair{
-					From:     time.Date(2023, time.September, 22, 4, 0, 0, 0, time.UTC),
-					To:       time.Date(2023, time.September, 22, 6, 0, 0, 0, time.UTC),
+					From:     time.Date(2023, time.August, 22, 4, 0, 0, 0, time.UTC),
+					To:       time.Date(2023, time.August, 22, 6, 0, 0, 0, time.UTC),
 					Duration: time.Duration(7200000000000),
 				},
 				Wind: Wind{
@@ -549,8 +558,8 @@ func TestUUEE(t *testing.T) {
 			{
 				Type: Temporary,
 				Valid: ValidPair{
-					From:     time.Date(2023, time.September, 22, 9, 0, 0, 0, time.UTC),
-					To:       time.Date(2023, time.September, 22, 18, 0, 0, 0, time.UTC),
+					From:     time.Date(2023, time.August, 22, 9, 0, 0, 0, time.UTC),
+					To:       time.Date(2023, time.August, 22, 18, 0, 0, 0, time.UTC),
 					Duration: time.Duration(32400000000000),
 				},
 				SkyCondition: []SkyCondition{
@@ -571,7 +580,10 @@ func TestUUEE(t *testing.T) {
 		},
 	}
 
-	fc, err := Parse(strings.NewReader(data))
+	fc, err := ParseWithOptions(strings.NewReader(data), Options{
+		Month: time.August,
+		Year:  2023,
+	})
 	if err != nil {
 		t.Fatalf("Error during parsing: %s", err)
 	}
@@ -602,10 +614,10 @@ func TestEGLL(t *testing.T) {
 			Longitude: -0.4619410038,
 			Timezone:  "Europe/London",
 		},
-		PublishTime: time.Date(2023, time.September, 21, 16, 58, 0, 0, time.UTC),
+		PublishTime: time.Date(2023, time.August, 21, 16, 58, 0, 0, time.UTC),
 		Valid: ValidPair{
-			From:     time.Date(2023, time.September, 21, 18, 0, 0, 0, time.UTC),
-			To:       time.Date(2023, time.September, 23, 0, 0, 0, 0, time.UTC),
+			From:     time.Date(2023, time.August, 21, 18, 0, 0, 0, time.UTC),
+			To:       time.Date(2023, time.August, 23, 0, 0, 0, 0, time.UTC),
 			Duration: time.Duration(108000000000000),
 		},
 		Visibility: Visibility{
@@ -629,8 +641,8 @@ func TestEGLL(t *testing.T) {
 			{
 				Type: Becoming,
 				Valid: ValidPair{
-					From:     time.Date(2023, time.September, 22, 1, 0, 0, 0, time.UTC),
-					To:       time.Date(2023, time.September, 22, 4, 0, 0, 0, time.UTC),
+					From:     time.Date(2023, time.August, 22, 1, 0, 0, 0, time.UTC),
+					To:       time.Date(2023, time.August, 22, 4, 0, 0, 0, time.UTC),
 					Duration: time.Duration(10800000000000),
 				},
 				SkyCondition: []SkyCondition{
@@ -644,8 +656,8 @@ func TestEGLL(t *testing.T) {
 			{
 				Type: Temporary,
 				Valid: ValidPair{
-					From:     time.Date(2023, time.September, 22, 2, 0, 0, 0, time.UTC),
-					To:       time.Date(2023, time.September, 22, 6, 0, 0, 0, time.UTC),
+					From:     time.Date(2023, time.August, 22, 2, 0, 0, 0, time.UTC),
+					To:       time.Date(2023, time.August, 22, 6, 0, 0, 0, time.UTC),
 					Duration: time.Duration(14400000000000),
 				},
 				Visibility: Visibility{
@@ -662,8 +674,8 @@ func TestEGLL(t *testing.T) {
 			{
 				Type: Becoming,
 				Valid: ValidPair{
-					From:     time.Date(2023, time.September, 22, 7, 0, 0, 0, time.UTC),
-					To:       time.Date(2023, time.September, 22, 10, 0, 0, 0, time.UTC),
+					From:     time.Date(2023, time.August, 22, 7, 0, 0, 0, time.UTC),
+					To:       time.Date(2023, time.August, 22, 10, 0, 0, 0, time.UTC),
 					Duration: time.Duration(10800000000000),
 				},
 				SkyCondition: []SkyCondition{
@@ -676,7 +688,10 @@ func TestEGLL(t *testing.T) {
 		},
 	}
 
-	fc, err := Parse(strings.NewReader(data))
+	fc, err := ParseWithOptions(strings.NewReader(data), Options{
+		Month: time.August,
+		Year:  2023,
+	})
 	if err != nil {
 		t.Fatalf("Error during parsing: %s", err)
 	}
