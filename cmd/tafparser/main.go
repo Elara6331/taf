@@ -58,7 +58,7 @@ func main() {
 	}
 
 	if *printGo {
-		repr.Println(fc)
+		repr.New(os.Stdout, repr.ScalarLiterals()).Println(fc)
 	} else {
 		enc := json.NewEncoder(os.Stdout)
 		if *pretty {
