@@ -16,32 +16,32 @@ import (
 	"go.elara.ws/taf/units"
 )
 
-// ParseString parses a TAF string and returns a Forecast.
-// This is equivalent to Parse(strings.NewReader(s)).
-func ParseString(s string) (*Forecast, error) {
-	return Parse(strings.NewReader(s))
+// DecodeString decodes a TAF string and returns a Forecast.
+// This is equivalent to Decode(strings.NewReader(s)).
+func DecodeString(s string) (*Forecast, error) {
+	return Decode(strings.NewReader(s))
 }
 
-// ParseFile parses a TAF string and returns a Forecast.
+// DecodeFile decodes a TAF string and returns a Forecast.
 // This is equivalent to opening a file and passing it
-// to Parse().
-func ParseFile(path string) (*Forecast, error) {
+// to Decode().
+func DecodeFile(path string) (*Forecast, error) {
 	fl, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
 	defer fl.Close()
 
-	return Parse(fl)
+	return Decode(fl)
 }
 
-// Parse parses the data in a reader using default options and
+// Decode decodes the data in a reader using default options and
 // returns a Forecast
-func Parse(r io.Reader) (*Forecast, error) {
-	return ParseWithOptions(r, Options{})
+func Decode(r io.Reader) (*Forecast, error) {
+	return DecodeWithOptions(r, Options{})
 }
 
-// Options contains options for the parser
+// Options contains options for the decoder
 type Options struct {
 	// If this is set, all distance units in the forecast
 	// will be converted to the given unit
@@ -60,8 +60,8 @@ type Options struct {
 	Month time.Month
 }
 
-// ParseWithOptions parses the data in a reader and returns a Forecast
-func ParseWithOptions(r io.Reader, opts Options) (*Forecast, error) {
+// DecodeWithOptions decodes the data in a reader and returns a Forecast
+func DecodeWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 	filename := "unknown"
 	switch r := r.(type) {
 	case *os.File:

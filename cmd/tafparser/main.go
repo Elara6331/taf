@@ -52,7 +52,7 @@ func main() {
 		fl = os.Stdin
 	}
 
-	fc, err := taf.ParseWithOptions(fl, opts)
+	fc, err := taf.DecodeWithOptions(fl, opts)
 	if err != nil {
 		log.Fatal("Error parsing TAF data").Err(err).Send()
 	}

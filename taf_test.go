@@ -188,7 +188,7 @@ func TestKLAX(t *testing.T) {
 		},
 	}
 
-	fc, err := ParseWithOptions(strings.NewReader(data), Options{
+	fc, err := DecodeWithOptions(strings.NewReader(data), Options{
 		Month: time.August,
 		Year:  2023,
 	})
@@ -309,7 +309,7 @@ func TestZGSZ(t *testing.T) {
 		},
 	}
 
-	fc, err := ParseWithOptions(strings.NewReader(data), Options{
+	fc, err := DecodeWithOptions(strings.NewReader(data), Options{
 		Month: time.August,
 		Year:  2023,
 	})
@@ -435,7 +435,7 @@ func TestLFBD(t *testing.T) {
 		},
 	}
 
-	fc, err := ParseWithOptions(strings.NewReader(data), Options{
+	fc, err := DecodeWithOptions(strings.NewReader(data), Options{
 		Month: time.August,
 		Year:  2023,
 	})
@@ -580,7 +580,7 @@ func TestUUEE(t *testing.T) {
 		},
 	}
 
-	fc, err := ParseWithOptions(strings.NewReader(data), Options{
+	fc, err := DecodeWithOptions(strings.NewReader(data), Options{
 		Month: time.August,
 		Year:  2023,
 	})
@@ -688,7 +688,7 @@ func TestEGLL(t *testing.T) {
 		},
 	}
 
-	fc, err := ParseWithOptions(strings.NewReader(data), Options{
+	fc, err := DecodeWithOptions(strings.NewReader(data), Options{
 		Month: time.August,
 		Year:  2023,
 	})
