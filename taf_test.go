@@ -28,7 +28,7 @@ func TestKLAX(t *testing.T) {
 		Visibility: Visibility{
 			Plus:  true,
 			Value: 6,
-			Unit:  units.StatuteMiles,
+			Unit:  units.Miles,
 		},
 		Wind: Wind{
 			Direction: Direction{
@@ -60,7 +60,7 @@ func TestKLAX(t *testing.T) {
 				Visibility: Visibility{
 					Plus:  true,
 					Value: 6,
-					Unit:  units.StatuteMiles,
+					Unit:  units.Miles,
 				},
 				Wind: Wind{
 					Direction: Direction{
@@ -84,7 +84,7 @@ func TestKLAX(t *testing.T) {
 				Visibility: Visibility{
 					Plus:  true,
 					Value: 6,
-					Unit:  units.StatuteMiles,
+					Unit:  units.Miles,
 				},
 				Wind: Wind{
 					Direction: Direction{
@@ -108,7 +108,7 @@ func TestKLAX(t *testing.T) {
 				Visibility: Visibility{
 					Plus:  true,
 					Value: 6,
-					Unit:  units.StatuteMiles,
+					Unit:  units.Miles,
 				},
 				Wind: Wind{
 					Direction: Direction{
@@ -132,7 +132,7 @@ func TestKLAX(t *testing.T) {
 				Visibility: Visibility{
 					Plus:  true,
 					Value: 6,
-					Unit:  units.StatuteMiles,
+					Unit:  units.Miles,
 				},
 				Wind: Wind{
 					Direction: Direction{
@@ -156,7 +156,7 @@ func TestKLAX(t *testing.T) {
 				Visibility: Visibility{
 					Plus:  true,
 					Value: 6,
-					Unit:  units.StatuteMiles,
+					Unit:  units.Miles,
 				},
 				Wind: Wind{
 					Direction: Direction{

@@ -94,17 +94,17 @@ func ParseWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 			setField(out, "Valid", vp)
 		case item.Weather != nil:
 			appendField(out, "Weather", Weather{
-				Modifier:      Modifier(item.Weather.Modifier),
-				Descriptor:    Descriptor(item.Weather.Descriptor),
-				Precipitation: Precipitation(item.Weather.Precipitation),
-				Obscuration:   Obscuration(item.Weather.Obscuration),
-				Phenomenon:    Phenomenon(item.Weather.Other),
+				Modifier:      convertModifier(item.Weather.Modifier),
+				Descriptor:    convertDescriptor(item.Weather.Descriptor),
+				Precipitation: convertPrecipitation(item.Weather.Precipitation),
+				Obscuration:   convertObscuration(item.Weather.Obscuration),
+				Phenomenon:    convertPhenomenon(item.Weather.Other),
 			})
 		case item.Vicinity != nil:
 			appendField(out, "Weather", Weather{
 				Vicinity:      true,
-				Descriptor:    Descriptor(item.Vicinity.Descriptor),
-				Precipitation: Precipitation(item.Vicinity.Precipitation),
+				Descriptor:    convertDescriptor(item.Vicinity.Descriptor),
+				Precipitation: convertPrecipitation(item.Vicinity.Precipitation),
 			})
 		case item.SkyCondition != nil:
 			var altitude int
@@ -117,8 +117,8 @@ func ParseWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 
 			appendField(out, "SkyCondition", SkyCondition{
 				Altitude:  altitude * 100, // Scale factor for altitude is 100
-				Type:      SkyConditionType(item.SkyCondition.Type),
-				CloudType: CloudType(item.SkyCondition.CloudType),
+				Type:      convertSkyConditionType(item.SkyCondition.Type),
+				CloudType: convertCloudType(item.SkyCondition.CloudType),
 			})
 		case item.Temperature != nil:
 			vt, err := parseValidTime(item.Temperature.Time)
@@ -132,7 +132,7 @@ func ParseWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 			}
 
 			appendField(out, "Temperature", Temperature{
-				Type:  TemperatureType(item.Temperature.Type),
+				Type:  convertTemperatureType(item.Temperature.Type),
 				Time:  vt,
 				Value: val,
 			})
@@ -173,7 +173,11 @@ func ParseWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 				item.Visibility.Unit = "M"
 			}
 
-			unit := units.Distance(item.Visibility.Unit)
+			unit, ok := units.ParseDistance(item.Visibility.Unit)
+			if !ok {
+				return nil, participle.Errorf(item.Visibility.Pos, "visibility: invalid unit %q", item.Visibility.Unit)
+			}
+
 			val, _ := ratNum.Float64()
 
 			if opts.DistanceUnit != "" {
@@ -234,7 +238,11 @@ func ParseWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 				}
 			}
 
-			unit := units.Speed(item.WindSpeed.Unit)
+			unit, ok := units.ParseSpeed(item.WindSpeed.Unit)
+			if !ok {
+				return nil, participle.Errorf(item.WindSpeed.Pos, "wind: invalid unit %q", item.Visibility.Unit)
+			}
+
 			if opts.SpeedUnit != "" {
 				speed = unit.Convert(opts.SpeedUnit, speed)
 				if gusts != 0 {
@@ -260,7 +268,7 @@ func ParseWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 			}
 		case item.Change != nil:
 			ch := &Change{
-				Type: ChangeType(item.Change.Type),
+				Type: convertChangeType(item.Change.Type),
 			}
 
 			// FM changes don't have a valid pair, they only come with a single time string

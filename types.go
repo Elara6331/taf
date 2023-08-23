@@ -60,19 +60,19 @@ type Visibility struct {
 type SkyConditionType string
 
 const (
-	Few                SkyConditionType = "FEW"
-	Scattered          SkyConditionType = "SCT"
-	Broken             SkyConditionType = "BKN"
-	Overcast           SkyConditionType = "OVC"
-	VerticalVisibility SkyConditionType = "VV"
-	SkyClear           SkyConditionType = "SKC"
+	Few                SkyConditionType = "Few"
+	Scattered          SkyConditionType = "Scattered"
+	Broken             SkyConditionType = "Broken"
+	Overcast           SkyConditionType = "Overcast"
+	VerticalVisibility SkyConditionType = "VerticalVisibility"
+	SkyClear           SkyConditionType = "SkyClear"
 )
 
 type CloudType string
 
 const (
-	CumuloNimbus    CloudType = "CB"
-	ToweringCumulus CloudType = "TCU"
+	CumuloNimbus    CloudType = "CumuloNumbus"
+	ToweringCumulus CloudType = "ToweringCumulus"
 )
 
 type SkyCondition struct {
@@ -97,58 +97,58 @@ type Direction struct {
 type Modifier string
 
 const (
-	Heavy Modifier = "+"
-	Light Modifier = "-"
+	Heavy Modifier = "Heavy"
+	Light Modifier = "Light"
 )
 
 type Descriptor string
 
 const (
-	Shallow      Descriptor = "MI"
-	Patches      Descriptor = "BC"
-	LowDrifting  Descriptor = "DC"
-	Blowing      Descriptor = "BL"
-	Showers      Descriptor = "SH"
-	Thunderstorm Descriptor = "TS"
-	Freezing     Descriptor = "FZ"
-	Partial      Descriptor = "PR"
+	Shallow      Descriptor = "Shallow"
+	Patches      Descriptor = "Patches"
+	LowDrifting  Descriptor = "LowDrifting"
+	Blowing      Descriptor = "Blowing"
+	Showers      Descriptor = "Showers"
+	Thunderstorm Descriptor = "Thunderstorm"
+	Freezing     Descriptor = "Freezing"
+	Partial      Descriptor = "Partial"
 )
 
 type Precipitation string
 
 const (
-	Drizzle     Precipitation = "DZ"
-	Rain        Precipitation = "RA"
-	Snow        Precipitation = "SN"
-	SnowGrains  Precipitation = "SG"
-	IceCrystals Precipitation = "IC"
-	IcePellets  Precipitation = "PL"
-	Hail        Precipitation = "GR"
-	SmallHail   Precipitation = "GS"
-	Unknown     Precipitation = "UP"
+	Drizzle     Precipitation = "Drizzle"
+	Rain        Precipitation = "Rain"
+	Snow        Precipitation = "Snow"
+	SnowGrains  Precipitation = "SnowGrains"
+	IceCrystals Precipitation = "IceCrystals"
+	IcePellets  Precipitation = "IcePellets"
+	Hail        Precipitation = "Hail"
+	SmallHail   Precipitation = "SmallHail"
+	Unknown     Precipitation = "Unknown"
 )
 
 type Obscuration string
 
 const (
-	Mist        Obscuration = "BR"
-	Fog         Obscuration = "FG"
-	Smoke       Obscuration = "FU"
-	Dust        Obscuration = "DU"
-	Sand        Obscuration = "SA"
-	Haze        Obscuration = "HZ"
-	Spray       Obscuration = "PY"
-	VolcanicAsh Obscuration = "VA"
+	Mist        Obscuration = "Mist"
+	Fog         Obscuration = "Fog"
+	Smoke       Obscuration = "Smoke"
+	Dust        Obscuration = "Dust"
+	Sand        Obscuration = "Sand"
+	Haze        Obscuration = "Haze"
+	Spray       Obscuration = "Spray"
+	VolcanicAsh Obscuration = "VolcanicAsh"
 )
 
 type Phenomenon string
 
 const (
-	Whirls      Phenomenon = "PO"
-	Squalls     Phenomenon = "SQ"
-	FunnelCloud Phenomenon = "FC"
-	SandStorm   Phenomenon = "SS"
-	DustStorm   Phenomenon = "DS"
+	Whirls      Phenomenon = "Whirls"
+	Squalls     Phenomenon = "Squalls"
+	FunnelCloud Phenomenon = "FunnelCloud"
+	Sandstorm   Phenomenon = "Sandstorm"
+	Duststorm   Phenomenon = "Duststorm"
 )
 
 type Weather struct {
@@ -163,8 +163,8 @@ type Weather struct {
 type TemperatureType string
 
 const (
-	High TemperatureType = "TX"
-	Low  TemperatureType = "TN"
+	High TemperatureType = "High"
+	Low  TemperatureType = "Low"
 )
 
 type Temperature struct {
@@ -176,13 +176,13 @@ type Temperature struct {
 type ChangeType string
 
 const (
-	From      ChangeType = "FM"
-	Becoming  ChangeType = "BECMG"
-	Temporary ChangeType = "TEMPO"
+	From      ChangeType = "From"
+	Becoming  ChangeType = "Becoming"
+	Temporary ChangeType = "Temporary"
 )
 
 type Flag string
 
 const (
-	CeilingAndVisibilityOK Flag = "CAVOK"
+	CeilingAndVisibilityOK Flag = "CeilingAndVisibilityOK"
 )
