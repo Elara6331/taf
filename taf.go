@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/alecthomas/participle/v2"
+	"go.elara.ws/taf/airports"
 	"go.elara.ws/taf/internal/parser"
 	"go.elara.ws/taf/units"
 )
@@ -77,7 +78,10 @@ func ParseWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 	for _, item := range ast.Items {
 		switch {
 		case item.ID != nil:
-			setField(out, "Identifier", *item.ID)
+			fc.Identifier = *item.ID
+			if a, ok := airports.Airports[fc.Identifier]; ok {
+				fc.Airport = a
+			}
 		case item.Time != nil:
 			t, err := parseTime(*item.Time)
 			if err != nil {

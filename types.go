@@ -3,23 +3,23 @@ package taf
 import (
 	"time"
 
+	"go.elara.ws/taf/airports"
 	"go.elara.ws/taf/units"
 )
 
-const None = ""
-
 type Forecast struct {
-	Identifier    string         `json:"identifier,omitempty"`
-	PublishTime   time.Time      `json:"publish_time,omitempty"`
-	Valid         ValidPair      `json:"valid,omitempty"`
-	Visibility    Visibility     `json:"visibility,omitempty"`
-	Wind          Wind           `json:"wind,omitempty"`
-	SkyCondition  []SkyCondition `json:"sky_condition,omitempty"`
-	Temperature   []Temperature  `json:"temperature,omitempty"`
-	Weather       []Weather      `json:"weather,omitempty"`
-	Probabilities []*Probability `json:"probabilities,omitempty"`
-	Changes       []*Change      `json:"changes,omitempty"`
-	Flags         []Flag         `json:"flags,omitempty"`
+	Identifier    string           `json:"identifier,omitempty"`
+	Airport       airports.Airport `json:"airport,omitempty"`
+	PublishTime   time.Time        `json:"publish_time,omitempty"`
+	Valid         ValidPair        `json:"valid,omitempty"`
+	Visibility    Visibility       `json:"visibility,omitempty"`
+	Wind          Wind             `json:"wind,omitempty"`
+	SkyCondition  []SkyCondition   `json:"sky_condition,omitempty"`
+	Temperature   []Temperature    `json:"temperature,omitempty"`
+	Weather       []Weather        `json:"weather,omitempty"`
+	Probabilities []*Probability   `json:"probabilities,omitempty"`
+	Changes       []*Change        `json:"changes,omitempty"`
+	Flags         []Flag           `json:"flags,omitempty"`
 }
 
 type Change struct {
