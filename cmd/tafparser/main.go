@@ -2,7 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"io"
+	"net/http"
 	"os"
+	"strings"
 
 	"github.com/alecthomas/repr"
 	"github.com/spf13/pflag"
@@ -21,6 +24,7 @@ func main() {
 	printGo := pflag.BoolP("print-go", "G", false, "Print Go code instead of JSON")
 	convertDist := pflag.StringP("convert-distance", "d", "", "Convert all the distances to the given unit. (valid units: mi, m, km)")
 	convertSpd := pflag.StringP("convert-speed", "s", "", "Convert all the speeds to the given unit. (valid units: m/s, kph, kts, mph)")
+	identifier := pflag.StringP("identifier", "i", "", "Automatically fetch the TAF report for the specified ICAO identifier")
 	pflag.Parse()
 
 	var opts taf.Options
@@ -41,18 +45,34 @@ func main() {
 		opts.SpeedUnit = s
 	}
 
-	var fl *os.File
+	var r io.Reader
 	var err error
 	if pflag.NArg() > 0 {
-		fl, err = os.Open(pflag.Arg(0))
+		fl, err := os.Open(pflag.Arg(0))
 		if err != nil {
 			log.Fatal("Error opening file").Err(err).Send()
 		}
+		defer fl.Close()
+		r = fl
+	} else if *identifier != "" {
+		// Identifiers must be uppercase
+		*identifier = strings.ToUpper(*identifier)
+		// Get the TAF report from aviationweather.gov's beta endpoint
+		res, err := http.Get("https://beta.aviationweather.gov/cgi-bin/data/taf.php?ids=" + *identifier)
+		if err != nil {
+			log.Fatal("Error getting TAF report").Err(err).Send()
+		}
+		// The backend doesn't return an error for non-existent reports, so check the content length instead
+		if res.ContentLength == 0 {
+			log.Fatal("Could not find a TAF report for the specified airport").Str("id", *identifier).Send()
+		}
+		defer res.Body.Close()
+		r = res.Body
 	} else {
-		fl = os.Stdin
+		r = os.Stdin
 	}
 
-	fc, err := taf.DecodeWithOptions(fl, opts)
+	fc, err := taf.DecodeWithOptions(r, opts)
 	if err != nil {
 		log.Fatal("Error parsing TAF data").Err(err).Send()
 	}

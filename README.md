@@ -48,3 +48,11 @@ tafparser -s m/s -d m
 ```
 
 This tells `tafparser` to convert all speed units to meters per second and distance units to meters.
+
+`tafparser` can also fetch TAF reports for you using the [aviationweather.gov](https://aviationweather.gov) site. Use the `-i <identifier>` flag to tell it to do that, like so:
+
+```bash
+tafparser -i EGLL
+```
+
+That should automatically fetch the report for London Heathrow and parse it.
