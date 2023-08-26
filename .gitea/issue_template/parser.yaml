@@ -1,0 +1,25 @@
+name: Parser Bug
+about: File a report about a valid TAF report not parsing correctly
+labels:
+  - Kind/Bug
+  - Theme/Parser
+  - Unconfirmed
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: taf-report
+    attributes:
+      label: Paste the TAF report you tried to parse.
+      description: If you used the automatic fetch feature, you can get the original report from https://beta.aviationweather.gov/.
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: What git commit were you using?
+      description: Leave it empty if you don't know
