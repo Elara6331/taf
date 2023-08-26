@@ -520,7 +520,6 @@ func TestUUEE(t *testing.T) {
 						Altitude: 400,
 					},
 				},
-				Probability: 40,
 			},
 			{
 				Type: Temporary,
@@ -538,6 +537,7 @@ func TestUUEE(t *testing.T) {
 						Obscuration: Fog,
 					},
 				},
+				Probability: 40,
 			},
 			{
 				Type: Becoming,
@@ -553,7 +553,6 @@ func TestUUEE(t *testing.T) {
 					Speed: 6,
 					Unit:  units.MetersPerSecond,
 				},
-				Probability: 40,
 			},
 			{
 				Type: Temporary,
@@ -576,6 +575,7 @@ func TestUUEE(t *testing.T) {
 						Precipitation: Rain,
 					},
 				},
+				Probability: 40,
 			},
 		},
 	}
@@ -651,7 +651,6 @@ func TestEGLL(t *testing.T) {
 						Altitude: 700,
 					},
 				},
-				Probability: 30,
 			},
 			{
 				Type: Temporary,
@@ -670,6 +669,7 @@ func TestEGLL(t *testing.T) {
 						Altitude: 400,
 					},
 				},
+				Probability: 30,
 			},
 			{
 				Type: Becoming,

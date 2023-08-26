@@ -88,6 +88,7 @@ func DecodeWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 		return nil, err
 	}
 
+	setProb := 0
 	fc := &Forecast{}
 	out := reflect.ValueOf(fc).Elem()
 
@@ -291,6 +292,13 @@ func DecodeWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 				Type: convertChangeType(item.Change.Type),
 			}
 
+			// if setProb is set, add the probability within it to the change,
+			// then reset the variable.
+			if setProb != 0 {
+				ch.Probability = setProb
+				setProb = 0
+			}
+
 			// FM changes don't have a valid pair, they only come with a single time string
 			if ch.Type == From {
 				t, err := parseTime(item.Change.Time, opts.Month, opts.Year)
@@ -313,13 +321,14 @@ func DecodeWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 			out = reflect.ValueOf(ch).Elem()
 		case item.Probability != nil:
 			// If the time is empty, this probability belongs to the
-			// previous change.
+			// next change.
 			if item.Probability.Time == "" {
 				prob, err := strconv.Atoi(item.Probability.Value)
 				if err != nil {
 					return nil, participle.Errorf(item.Probability.Pos, "prob: %s", err)
 				}
-				setField(out, "Probability", prob)
+				// Set the setProb variable. This will let the decoder know to add it to the next change.
+				setProb = prob
 			} else {
 				pr := &Probability{}
 
