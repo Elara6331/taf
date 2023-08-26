@@ -44,6 +44,9 @@ type Forecast struct {
 
 	// Flags contains special flags associated with the forecast.
 	Flags []Flag `json:"flags,omitempty"`
+
+	// Remark contains remarks from the forecast.
+	Remark string `json:"remark,omitempty"`
 }
 
 // Change represents a change in weather conditions within a forecast.

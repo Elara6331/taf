@@ -366,7 +366,8 @@ func DecodeWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 				// happen to the probability rather than the root forecast.
 				out = reflect.ValueOf(pr).Elem()
 			}
-
+		case item.Remark != nil:
+			fc.Remark = *item.Remark
 		}
 	}
 
