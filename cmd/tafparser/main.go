@@ -64,7 +64,7 @@ func main() {
 		}
 		// The backend doesn't return an error for non-existent reports, so check the content length instead
 		if res.ContentLength == 0 {
-			log.Fatal("Could not find a TAF report for the specified airport").Str("id", *identifier).Send()
+			log.Fatal("Couldn't find a TAF report for the specified airport").Str("id", *identifier).Send()
 		}
 		defer res.Body.Close()
 		r = res.Body
