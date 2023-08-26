@@ -6,7 +6,7 @@ import (
 
 var lex = lexer.MustSimple([]lexer.SimpleRule{
 	{Name: "header", Pattern: `TAF (AMD|COR)? ?`},
-	{Name: "Remark", Pattern: `RMK .*`},
+	{Name: "Remark", Pattern: `RMK[^\n]*`},
 	{Name: "Number", Pattern: `\d+`},
 	{Name: "Modifier", Pattern: `[+-]|VC`},
 	{Name: "Prob", Pattern: "PROB"},

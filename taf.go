@@ -322,7 +322,7 @@ func DecodeWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 		case item.Probability != nil:
 			// If the time is empty, this probability belongs to the
 			// next change.
-			if item.Probability.Time == "" {
+			if item.Probability.Valid.Start == "" {
 				prob, err := strconv.Atoi(item.Probability.Value)
 				if err != nil {
 					return nil, participle.Errorf(item.Probability.Pos, "prob: %s", err)
@@ -332,33 +332,10 @@ func DecodeWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 			} else {
 				pr := &Probability{}
 
-				// The probability time string must have 4 characters,
-				// 2 for starting time and 2 for ending time
-				if len(item.Probability.Time) < 4 {
-					return nil, participle.Errorf(item.Probability.Pos, "prob: invalid time %q", item.Probability.Time)
-				}
-
-				startStr := item.Probability.Time[:2]
-				endStr := item.Probability.Time[2:]
-
-				start, err := strconv.Atoi(startStr)
+				pr.Valid, err = parseValid(&item.Probability.Valid, opts.Month, opts.Year)
 				if err != nil {
 					return nil, participle.Errorf(item.Probability.Pos, "prob: %s", err)
 				}
-
-				end, err := strconv.Atoi(endStr)
-				if err != nil {
-					return nil, participle.Errorf(item.Probability.Pos, "prob: %s", err)
-				}
-
-				t := fc.PublishTime
-				pr.Valid = ValidPair{
-					From: time.Date(t.Year(), t.Month(), t.Day(), start, 0, 0, 0, time.UTC),
-					To:   time.Date(t.Year(), t.Month(), t.Day(), end, 0, 0, 0, time.UTC),
-				}
-
-				// Get the duration by subtracting the from time from the to time
-				pr.Valid.Duration = pr.Valid.To.Sub(pr.Valid.From)
 
 				fc.Probabilities = append(fc.Probabilities, pr)
 
@@ -367,7 +344,7 @@ func DecodeWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 				out = reflect.ValueOf(pr).Elem()
 			}
 		case item.Remark != nil:
-			fc.Remark = *item.Remark
+			fc.Remark = strings.TrimSpace(strings.TrimPrefix(*item.Remark, "RMK"))
 		}
 	}
 

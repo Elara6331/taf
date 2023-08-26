@@ -34,8 +34,8 @@ type ValidPair struct {
 
 type Probability struct {
 	Pos   lexer.Position
-	Value string `Prob @Number`
-	Time  string `(WS @Number)?`
+	Value string    `Prob @Number`
+	Valid ValidPair `(WS @@)?`
 }
 
 type WindSpeed struct {
