@@ -320,17 +320,18 @@ func DecodeWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 			// happen to the change rather than the root forecast.
 			out = reflect.ValueOf(ch).Elem()
 		case item.Probability != nil:
+			prob, err := strconv.Atoi(item.Probability.Value)
+			if err != nil {
+				return nil, participle.Errorf(item.Probability.Pos, "prob: %s", err)
+			}
+
 			// If the time is empty, this probability belongs to the
 			// next change.
 			if item.Probability.Valid.Start == "" {
-				prob, err := strconv.Atoi(item.Probability.Value)
-				if err != nil {
-					return nil, participle.Errorf(item.Probability.Pos, "prob: %s", err)
-				}
 				// Set the setProb variable. This will let the decoder know to add it to the next change.
 				setProb = prob
 			} else {
-				pr := &Probability{}
+				pr := &Probability{Value: prob}
 
 				pr.Valid, err = parseValid(&item.Probability.Valid, opts.Month, opts.Year)
 				if err != nil {
