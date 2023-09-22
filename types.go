@@ -148,7 +148,7 @@ type CloudType string
 
 // Cloud Types
 const (
-	CumuloNimbus    CloudType = "CumuloNumbus"
+	CumuloNimbus    CloudType = "CumuloNimbus"
 	ToweringCumulus CloudType = "ToweringCumulus"
 )
 
