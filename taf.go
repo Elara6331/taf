@@ -92,6 +92,10 @@ func DecodeWithOptions(r io.Reader, opts Options) (*Forecast, error) {
 	fc := &Forecast{}
 	out := reflect.ValueOf(fc).Elem()
 
+	if ast.Type != nil {
+		fc.ReportType = convertReportType(*ast.Type)
+	}
+
 	for _, item := range ast.Items {
 		switch {
 		case item.ID != nil:

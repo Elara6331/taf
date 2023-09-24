@@ -1,5 +1,16 @@
 package taf
 
+func convertReportType(s string) ReportType {
+	switch s {
+	case "AMD":
+		return Amended
+	case "COR":
+		return Corrected
+	default:
+		return ""
+	}
+}
+
 func convertSkyConditionType(s string) SkyConditionType {
 	switch s {
 	case "FEW":

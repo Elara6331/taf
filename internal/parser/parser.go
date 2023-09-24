@@ -6,6 +6,7 @@ import (
 )
 
 type AST struct {
+	Type  *string `(@Type WS)?`
 	Items []*Item `@@*`
 }
 

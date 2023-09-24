@@ -207,6 +207,7 @@ func TestZGSZ(t *testing.T) {
   TEMPO 2204/2208 TSRA SCT020 FEW023CB`
 
 	expected := &Forecast{
+		ReportType: Amended,
 		Identifier: "ZGSZ",
 		Airport: airports.Airport{
 			ICAO:      "ZGSZ",

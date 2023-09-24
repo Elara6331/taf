@@ -9,6 +9,9 @@ import (
 
 // Forecast represents a Terminal Aerodrome Forecast (TAF) weather report for a specific airport.
 type Forecast struct {
+	// ReportType represents the type of report this forecast describes.
+	ReportType ReportType `json:"report_type,omitempty"`
+
 	// Identifier holds the ICAO airport identifier for which this forecast was issued.
 	Identifier string `json:"identifier,omitempty"`
 
@@ -129,6 +132,16 @@ type Visibility struct {
 	// Unit specifies the unit of measurement for the visibility value.
 	Unit units.Distance `json:"unit,omitempty"`
 }
+
+// ReportType represents different types of reports.
+type ReportType string
+
+const (
+	// Amended represents a report issued when the previous report is no longer accurate.
+	Amended ReportType = "Amended"
+	// Corrected represents a correction to a previous report.
+	Corrected ReportType = "Corrected"
+)
 
 // SkyConditionType represents different types of sky conditions in the forecast.
 type SkyConditionType string
