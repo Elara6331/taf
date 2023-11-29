@@ -58,7 +58,7 @@ func main() {
 		// Identifiers must be uppercase
 		*identifier = strings.ToUpper(*identifier)
 		// Get the TAF report from aviationweather.gov's beta endpoint
-		res, err := http.Get("https://beta.aviationweather.gov/cgi-bin/data/taf.php?ids=" + *identifier)
+		res, err := http.Get("https://aviationweather.gov/cgi-bin/data/taf.php?ids=" + *identifier)
 		if err != nil {
 			log.Fatal("Error getting TAF report").Err(err).Send()
 		}
